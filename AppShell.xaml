@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Boost.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Boost"
+    xmlns:views="clr-namespace:Boost.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="Boost" Shell.NavBarIsVisible="False"  >
+
+    <!--<TabBar>
+        <ShellContent 
+            Title="Login"
+            ContentTemplate="{DataTemplate views:Login}"
+            Route="Login"
+        />
+    </TabBar>-->
+
+    <TabBar >
+
+        <ShellContent 
+            Title="Home"
+            ContentTemplate="{DataTemplate views:DashBoard}"
+            Route="DashBoard"
+            Icon="dashboard_tabbar_icon"
+        />
+        <ShellContent 
+            Title="Workouts"
+            ContentTemplate="{DataTemplate views:Workouts}"
+            Route="Workouts"
+            Icon="workout_tabbar_icon"
+        />
+        <ShellContent 
+            Title="Social"
+            ContentTemplate="{DataTemplate views:Challenges}"
+            Route="Challenges"
+            Icon="social_tabbar_icon"
+        />
+        <ShellContent 
+            Title="Stats"
+            ContentTemplate="{DataTemplate views:Statistics}"
+            Route="Statistics"
+            Icon="stats_tabbar_icon"
+        />
+
+
+
+
+
+
+
+
+    </TabBar>
+
+</Shell>

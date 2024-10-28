@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Boost.Views.DashBoard"
+             Title="Dashboard"
+             xmlns:vm="clr-namespace:Boost.ViewModels"
+             xmlns:control="clr-namespace:Boost.Views.Controls">
+    <ContentPage.BindingContext>
+        <vm:DashBoardViewModel/>
+    </ContentPage.BindingContext>
+    <Grid  BackgroundColor="{AppThemeBinding Dark={StaticResource MainDark}, Light={StaticResource Main}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55" />
+            <RowDefinition Height="*" />
+            <!--<RowDefinition Height="70"  />-->
+        </Grid.RowDefinitions>
+        <control:TopNav Grid.Row="0" ></control:TopNav>
+
+            <ScrollView Grid.Row="1">
+                
+                <StackLayout Padding="5,0">
+                <StackLayout Orientation="Horizontal" Padding="10, 20, 0, 0" IsVisible="False">
+                    <StackLayout>
+                        <Image Source="streak_icon" HeightRequest="40" WidthRequest="35" VerticalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                    <StackLayout Padding="10,0">
+                        <Label Text="6 Day" FontFamily="Anton-Regular" TextColor="{StaticResource Gray300}" Padding="0" FontSize="12"/>
+                        <Label Text="Streak" FontFamily="Anton-Regular" FontSize="16"/>
+                    </StackLayout>
+                        
+                        
+                    
+                </StackLayout>
+                <!--<Label Text="This Week" FontFamily="Anton-Regular"  TextColor="Black" FontSize="20" Padding="10, 15, 0, 0" ></Label>-->
+                    <!---Days of the week-->
+                <StackLayout Padding="10, 15, 0, 0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <!--<CollectionView x:Name="CalendarView" SelectionMode="Single" ItemsLayout="HorizontalList" SelectionChanged="CalendarView_SelectionChanged"  >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>-->
+                    <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+
+                        <FlexLayout HorizontalOptions="FillAndExpand" Direction="Row" x:Name="CalendarView" >
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <!--<Grid>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup>
+                                            <VisualState x:Name="Normal">
+                                                <VisualState.Setters>
+                                                    -->
+                                    <!-- Default background color when not selected -->
+                                    <!--
+                                                    <Setter Property="Grid.BackgroundColor" Value="Transparent" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState x:Name="Selected">
+                                                <VisualState.Setters>
+                                                    -->
+                                    <!-- Change background color when selected -->
+                                    <!--
+                                                    <Setter Property="Grid.BackgroundColor" Value="Transparent" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>-->
+                                    <Frame BorderColor="{StaticResource Gray100}"  HorizontalOptions="FillAndExpand" CornerRadius="10" WidthRequest="45" HeightRequest="50" Padding="0" Margin="0,0,4,0" BackgroundColor="{Binding selectedColor}" >
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                        </Frame.GestureRecognizers>
+                                        <StackLayout HorizontalOptions="Center" >
+                                            <Label VerticalOptions="CenterAndExpand" Text="{Binding dayDate}" HorizontalOptions="Center" TextColor="{Binding selectedTextColor}"></Label>
+                                            <Label VerticalOptions="CenterAndExpand" Text="{Binding initial}" HorizontalOptions="Center" TextColor="{Binding selectedTextColor}"></Label>
+                                        </StackLayout>
+                                    </Frame>
+                                    <!--</Grid>-->
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+
+                    </ScrollView>
+                    <!--</DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>-->
+                </StackLayout>
+                <!--<StackLayout Orientation="Horizontal" Padding="10" HorizontalOptions="FillAndExpand" >
+                        <Frame HorizontalOptions="FillAndExpand" CornerRadius="10" Padding="7" Margin="0,0,4,0" BackgroundColor="{StaticResource Accent}" >
+                            <StackLayout HorizontalOptions="Center">
+                                <Label Text="1" HorizontalOptions="Center" TextColor="white"></Label>
+                                <Label Text="M" HorizontalOptions="Center" TextColor="White"></Label>
+                            </StackLayout>
+                        </Frame>
+                        <Frame HorizontalOptions="FillAndExpand" CornerRadius="10" Padding="7" Margin="0,0,4,0" >
+                            <StackLayout HorizontalOptions="Center">
+                                <Label Text="2" HorizontalOptions="Center"></Label>
+                                <Label Text="T" HorizontalOptions="Center"></Label>
+                            </StackLayout>
+                        </Frame>
+                        <Frame HorizontalOptions="FillAndExpand" CornerRadius="10" Padding="7" Margin="0,0,4,0">
+                            <StackLayout HorizontalOptions="Center">
+                                <Label Text="3" HorizontalOptions="Center"></Label>
+                                <Label Text="W" HorizontalOptions="Center"></Label>
+                            </StackLayout>
+                        </Frame>
+                        <Frame HorizontalOptions="FillAndExpand" CornerRadius="10" Padding="7" Margin="0,0,4,0">
+                            <StackLayout HorizontalOptions="Center">
+                                <Label Text="4" HorizontalOptions="Center"></Label>
+                                <Label Text="T" HorizontalOptions="Center"></Label>
+                            </StackLayout>
+                        </Frame>
+                        <Frame HorizontalOptions="FillAndExpand" CornerRadius="10" Padding="7" Margin="0,0,4,0">
+                            <StackLayout HorizontalOptions="Center">
+                                <Label Text="5" HorizontalOptions="Center"></Label>
+                                <Label Text="F" HorizontalOptions="Center"></Label>
+                            </StackLayout>
+                        </Frame>
+                        <Frame HorizontalOptions="FillAndExpand" CornerRadius="10" Padding="7" Margin="0,0,4,0">
+                            <StackLayout HorizontalOptions="Center">
+                                <Label Text="6" HorizontalOptions="Center"></Label>
+                                <Label Text="S" HorizontalOptions="Center"></Label>
+                            </StackLayout>
+                        </Frame>
+                        <Frame HorizontalOptions="FillAndExpand" CornerRadius="10" Padding="7" Margin="0,0,4,0">
+                            <StackLayout HorizontalOptions="Center">
+                                <Label Text="7" HorizontalOptions="Center"></Label>
+                                <Label Text="S" HorizontalOptions="Center"></Label>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>-->
+                    <!---Current day summary-->
+                    <StackLayout Padding="10" HeightRequest="350">
+                    <Frame CornerRadius="10" VerticalOptions="FillAndExpand" Padding="5" HasShadow="False" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}" BorderColor="{StaticResource Gray100}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="80" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="50"  />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  VerticalOptions="End" Padding="10">
+                                    <StackLayout Orientation="Vertical" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                        <Label Text="Today 1 January 2024 at 9:00am" FontSize="12" VerticalOptions="End" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}"></Label>
+                                        </StackLayout>
+                                        <BoxView BackgroundColor="gray" HeightRequest=".5"></BoxView>
+
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Label Text="Back and Biceps" FontFamily="Anton-Regular" TextColor="{AppThemeBinding Dark='White', Light='#3F3F3F'}"  FontSize="25" VerticalOptions="End"></Label>
+                                        <Label Text="Edit" VerticalOptions="End" HorizontalOptions="EndAndExpand" TextColor="{StaticResource Accent}" Padding="0,0,0,2"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+
+                            <Frame HorizontalOptions="FillAndExpand"  Grid.Row="1" Grid.ColumnSpan="2" Padding="0" HasShadow="False" BackgroundColor="blue" Margin="10,0,10,10" CornerRadius="10">
+                                <Image Source="temp_1" Aspect="AspectFill"/>
+                            </Frame>
+
+
+
+
+                                <StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Padding="10,0"  VerticalOptions="Center">
+                                    <Button  HeightRequest="40" BorderColor="{StaticResource Accent}"  BorderWidth="1" BackgroundColor="Transparent"   Text="Start" TextColor="{StaticResource Accent}" HorizontalOptions="FillAndExpand" CornerRadius="10" FontSize="12" Padding="0" Margin="0">
+                                    </Button>
+                                </StackLayout>
+
+                            </Grid>
+
+                        </Frame>
+
+                    </StackLayout>
+                    <!---Recents-->
+                    <StackLayout>
+                    <Label Text="Recents" FontFamily="Anton-Regular" TextColor="{AppThemeBinding Dark='White', Light='#3F3F3F'}"  Padding="10, 15, 0, 0" FontSize="20"></Label>
+                        <StackLayout Padding="10">
+                            <ScrollView Orientation="Horizontal">
+                                <StackLayout Orientation="Horizontal">
+                                <Frame BorderColor="{StaticResource Gray100}" HeightRequest="300" WidthRequest="250" CornerRadius="10" Margin="0,0,5,0" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}"></Frame>
+                                <Frame BorderColor="{StaticResource Gray100}" HeightRequest="300" WidthRequest="250" CornerRadius="10" Margin="0,0,5,0" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}"></Frame>
+                                <Frame BorderColor="{StaticResource Gray100}" HeightRequest="300" WidthRequest="250" CornerRadius="10" Margin="0,0,5,0" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}"></Frame>
+                                <Frame BorderColor="{StaticResource Gray100}" HeightRequest="300" WidthRequest="250" CornerRadius="10" Margin="0,0,5,0" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}"></Frame>
+                                </StackLayout>
+                            </ScrollView>
+                        </StackLayout>
+                    </StackLayout>
+                    <!---Challenges scrollview-->
+                    <StackLayout >
+                    <Label Text="Challenges" FontFamily="Anton-Regular" TextColor="{AppThemeBinding Dark='White', Light='#3F3F3F'}" Padding="10, 15, 0, 0" FontSize="20"></Label>
+                        <StackLayout Padding="10" >
+                            <ScrollView Orientation="Horizontal" >
+                                <StackLayout Orientation="Horizontal">
+                                <Frame BorderColor="{StaticResource Gray100}" HeightRequest="300" WidthRequest="250" CornerRadius="10" Margin="0,0,5,0" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}"></Frame>
+                                <Frame BorderColor="{StaticResource Gray100}" HeightRequest="300" WidthRequest="250" CornerRadius="10" Margin="0,0,5,0" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}"></Frame>
+                                <Frame BorderColor="{StaticResource Gray100}" HeightRequest="300" WidthRequest="250" CornerRadius="10" Margin="0,0,5,0" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}"></Frame>
+                                <Frame BorderColor="{StaticResource Gray100}" HeightRequest="300" WidthRequest="250" CornerRadius="10" Margin="0,0,5,0" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}"></Frame>
+                                </StackLayout>
+
+                            </ScrollView>
+                        </StackLayout>
+
+                    </StackLayout>
+
+                </StackLayout>
+
+            </ScrollView>
+
+        <!--<Button Grid.Row="1" ImageSource="add_icon"  HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" WidthRequest="25" HeightRequest="25" BackgroundColor="Transparent" Margin="0,0,30,30"></Button>-->
+
+
+
+        <!--<control:AddButton Grid.Row="2" BackgroundColor="Transparent"></control:AddButton>-->
+
+    </Grid>
+
+</ContentPage>

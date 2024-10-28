@@ -1,0 +1,36 @@
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Boost.Views.Popups.AddWorkoutThumbnailPopup"
+             xmlns:local="clr-namespace:Boost.Views.Popups"
+             CanBeDismissedByTappingOutsideOfPopup="True"
+              Shell.BackgroundColor="Transparent"
+               
+               >
+    <Grid  BackgroundColor="Transparent" >
+        <Frame Padding="20,10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="15"  WidthRequest="300" HeightRequest="550" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}">
+            <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout Margin="0,0,0,10">
+                    <Label Text="Thumbnails" FontSize="24" FontFamily="Anton-Regular" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray600}}"/>
+                    <!--<BoxView  HeightRequest="1" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource Gray600}"/>-->
+                </StackLayout>
+                <ActivityIndicator x:Name="activity_indicator" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                <ScrollView>
+                    <StackLayout>
+                        <CollectionView x:Name="collectionView" Margin="0,10,0,0">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Padding="5" Margin="5" BorderColor="LightGray" HasShadow="True">
+                                        <Image Source="temp_1.jpg" Aspect="AspectFill" WidthRequest="100" HeightRequest="100"/>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </ScrollView>
+                <Button Clicked="Add_Button_Clicked" VerticalOptions="EndAndExpand" Text="Save" BackgroundColor="{StaticResource Accent}" TextColor="White"/>
+            </StackLayout>
+
+        </Frame>
+    </Grid>
+</toolkit:Popup>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Boost.Views.AddEditPages.ProfilePage"
+             xmlns:control="clr-namespace:Boost.Views.Controls"
+             xmlns:vm="clr-namespace:Boost.ViewModels"
+             Title="AddEditWorkout">
+    <ContentPage.BackgroundColor>
+        <AppThemeBinding Light="#FAFAFA" Dark="{StaticResource MainDark}" />
+    </ContentPage.BackgroundColor>
+    <ContentPage.BindingContext>
+        <vm:AddEditWorkoutViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="10">
+        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
+
+            <!--BACK BUTTON-->
+            <StackLayout Orientation="Horizontal">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Back_TapGestureRecognizer_Tapped"/>
+                </StackLayout.GestureRecognizers>
+                <Image Margin="10" Scale="0.8" Source="{AppThemeBinding Dark='back_arrow', Light='back_gray'}" WidthRequest="25" HeightRequest="25">
+                </Image>
+                <Label FontSize="18" VerticalOptions="Center" Text="Back"/>
+
+            </StackLayout>
+            <!--PROFILEIMAGE-->
+            <StackLayout Orientation="Horizontal" Padding="5">
+                <Image x:Name="ProfileImage"
+               Source="profile_icon"
+               WidthRequest="110"
+               HeightRequest="110"
+               Aspect="AspectFill">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                    Tapped="OnImageTapped" 
+                    NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <StackLayout VerticalOptions="Center" Padding="5">
+                    <Label Padding="5" Text="Wian de jager" TextColor="{StaticResource Gray600}" FontSize="24"/>
+                    <StackLayout Orientation="Horizontal">
+                        <StackLayout Padding="5">
+                            <Label Text="Followers" TextColor="{StaticResource Gray600}" FontSize="18" FontAttributes="Bold"/>
+                            <Label Text="0" HorizontalOptions="Center"/>
+                        </StackLayout>
+                        <StackLayout Padding="5">
+                            <Label Text="Following" TextColor="{StaticResource Gray600}" FontSize="18" FontAttributes="Bold"/>
+                            <Label Text="0" HorizontalOptions="Center"/>
+                        </StackLayout>
+                        <StackLayout Padding="5" >
+                            <Label Text="Posts" TextColor="{StaticResource Gray600}" FontSize="18" FontAttributes="Bold"/>
+                            <Label Text="0" HorizontalOptions="Center"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+
+
+            </StackLayout>
+
+            <!--TABS-->
+            <StackLayout Margin="10,20"  Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <StackLayout HorizontalOptions="FillAndExpand" x:Name="posts_stack">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="View_TapGestureRecognizer_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                    <Image x:Name="posts_image" Margin="10" Source="posts_gray_dark" WidthRequest="25" HeightRequest="25">
+                    </Image>
+                    <BoxView BackgroundColor="{StaticResource Gray500}" HeightRequest="2"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand" x:Name="personal_stack">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="View_TapGestureRecognizer_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                    <Image x:Name="personal_image" Margin="10" Source="person_gray_light" WidthRequest="25" HeightRequest="25">
+                    </Image>
+                    <BoxView BackgroundColor="Transparent" HeightRequest="2"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand" x:Name="settings_stack">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="View_TapGestureRecognizer_Tapped"/>
+                    </StackLayout.GestureRecognizers>
+                    <Image x:Name="settings_image" Margin="10" Source="settings_gray_light"  WidthRequest="25" HeightRequest="25">
+                    </Image>
+                    <BoxView BackgroundColor="Transparent" HeightRequest="2"/>
+                </StackLayout>
+            </StackLayout>
+
+            <!--POSTS-->
+            <StackLayout x:Name="posts" VerticalOptions="CenterAndExpand">
+                <StackLayout  x:Name="empty_post_stack" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                    <Label FontSize="20" Text="You don't have any posts" HorizontalOptions="Center" />
+                    <Label FontSize="20" Text="Let's Create one!" HorizontalOptions="Center" />
+
+                    <Button BackgroundColor="{StaticResource Accent}" Text="Create Post" Margin="20,20"/>
+                </StackLayout>
+                
+            </StackLayout>
+            
+            <!--Personal-->
+            <StackLayout x:Name="personal">
+                <StackLayout Padding="15,10">
+                    <Label Text="Personal" TextColor="{StaticResource Gray600}"/>
+                </StackLayout>
+                <StackLayout Padding="20,10">
+                    <Label Text="Personal Bests" FontSize="18" TextColor="{StaticResource Gray400}"/>
+                </StackLayout>
+            </StackLayout>
+
+            <!--SETTINGS-->
+            <StackLayout x:Name="settings">
+                
+                <StackLayout Padding="15,10">
+                    <Label Text="Account" TextColor="{StaticResource Gray600}"/>
+                </StackLayout>
+                <StackLayout Padding="20,10">
+                    <Label Text="My Profile" FontSize="18" TextColor="{StaticResource Gray400}"/>
+                </StackLayout>
+                <StackLayout Padding="20,10">
+                    <Label Text="Change Password" FontSize="18" TextColor="{StaticResource Gray400}"/>
+                </StackLayout>
+
+                <StackLayout Padding="15,10">
+                    <Label Text="Preference" TextColor="{StaticResource Gray600}"/>
+                </StackLayout>
+                <StackLayout Padding="20,10">
+                    <Label Text="Display" FontSize="18" TextColor="{StaticResource Gray400}"/>
+                </StackLayout>
+
+                <StackLayout Padding="15,10">
+                    <Label Text="Other" TextColor="{StaticResource Gray600}"/>
+                </StackLayout>
+                <StackLayout Padding="20,10">
+                    <Label Text="About" FontSize="18" TextColor="{StaticResource Gray400}"/>
+                </StackLayout>
+                <StackLayout Padding="20,10">
+                    <Label Text="Delete Your Account" FontSize="18" TextColor="{StaticResource Gray400}"/>
+                </StackLayout>
+                <StackLayout Padding="20,10">
+                    <Label Text="Log Out" FontSize="18" TextColor="{StaticResource Gray400}"/>
+                </StackLayout>
+            </StackLayout>
+
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

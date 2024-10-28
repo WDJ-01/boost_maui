@@ -1,0 +1,23 @@
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Boost.Views.Popups.AddWorkoutCategoryPopup"
+             xmlns:local="clr-namespace:Boost.Views.Popups"
+               xmlns:control="clr-namespace:Boost.Views.Controls"
+             CanBeDismissedByTappingOutsideOfPopup="True"
+               
+               >
+    <VerticalStackLayout  BackgroundColor="Transparent">
+        <Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="15"  WidthRequest="275" HeightRequest="500">
+            <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout>
+                    <Label Text="Create Category" FontFamily="Anton-Regular" HorizontalOptions="CenterAndExpand"/>
+                    <BoxView  HeightRequest="1" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource Gray600}"/>
+                </StackLayout>
+                <control:CustomEntry Placeholder="Category Name"></control:CustomEntry>
+                
+            </StackLayout>
+
+        </Frame>
+    </VerticalStackLayout>
+</toolkit:Popup>

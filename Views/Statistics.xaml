@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Boost.Views.Statistics"
+             Title="Login"
+             xmlns:vm="clr-namespace:Boost.ViewModels"
+             xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Markup" 
+             xmlns:control="clr-namespace:Boost.Views.Controls">
+    <!--<ContentPage.BindingContext>
+        <vm:LoginViewModel />
+    </ContentPage.BindingContext>-->
+
+    <Grid  BackgroundColor="{AppThemeBinding Dark={StaticResource MainDark}, Light={StaticResource Main}}"  RowSpacing="0" ColumnSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <!--<RowDefinition Height="70"  />-->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <control:SecondaryTopNav Title="Your Stats" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  ></control:SecondaryTopNav>
+
+        <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" Orientation="Horizontal" Padding="10,15">
+            <Grid HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="0" Padding="20,0">
+                    <Label FontSize="16" Text="Activity" TextColor="{StaticResource Gray600}" HorizontalOptions="Center" Padding="10"/>
+                    <BoxView HeightRequest="2" BackgroundColor="{StaticResource Accent}"/>
+                </StackLayout>
+                <StackLayout Grid.Column="1"  Padding="20,0" >
+                    <Label FontSize="16" Text="Feedback" TextColor="{StaticResource Gray500}" HorizontalOptions="Center" Padding="10"/>
+                    <BoxView HeightRequest="2" BackgroundColor="Transparent"/>
+                </StackLayout>
+
+            </Grid>
+        </StackLayout>
+
+        <StackLayout Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="2">
+            
+        </StackLayout>
+
+
+    </Grid>
+
+</ContentPage>

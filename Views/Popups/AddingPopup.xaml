@@ -1,0 +1,71 @@
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Boost.Views.Popups.AddingPopup"
+             xmlns:local="clr-namespace:Boost.Views.Popups"
+             CanBeDismissedByTappingOutsideOfPopup="True"
+              Shell.BackgroundColor="Transparent"
+               
+               >
+    <Grid  BackgroundColor="Transparent" >
+        <Frame Padding="20,10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="15"  WidthRequest="300" HeightRequest="600" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}">
+            <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout Margin="0,0,0,10">
+                    <Label Text="Exercises" FontSize="24" FontFamily="Anton-Regular" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray600}}"/>
+                    <!--<BoxView  HeightRequest="1" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource Gray600}"/>-->
+                </StackLayout>
+                <StackLayout HeightRequest="20" Margin="0,0,0,20">
+                    <Frame BackgroundColor="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource Gray100}}" Padding="0" CornerRadius="10">
+                        <SearchBar Placeholder="Search Exercise"  />
+                    </Frame>
+                </StackLayout>
+                <ScrollView HorizontalOptions="Fill" Orientation="Horizontal" Margin="0,20,0,0" HorizontalScrollBarVisibility="Never">
+                    <StackLayout Orientation="Horizontal">
+                        <Frame BackgroundColor="{StaticResource Gray100}" Padding="10,7.5" CornerRadius="10" Margin="0,0,5,0">
+                            <Label Text="All" TextColor="{StaticResource Gray600}"/>
+                        </Frame>
+                        <Frame BackgroundColor="{StaticResource Gray100}" Padding="10,7.5" CornerRadius="10" Margin="0,0,5,0">
+                            <Label Text="Weightlifting" TextColor="{StaticResource Gray600}"/>
+                        </Frame>
+                        <Frame BackgroundColor="{StaticResource Gray100}" Padding="10,7.5" CornerRadius="10" Margin="0,0,5,0">
+                            <Label Text="Calisthenics" TextColor="{StaticResource Gray600}"/>
+                        </Frame>
+                        <Frame BackgroundColor="{StaticResource Gray100}" Padding="10,7.5" CornerRadius="10" Margin="0,0,5,0">
+                            <Label Text="Crossfit" TextColor="{StaticResource Gray600}"/>
+                        </Frame>
+                        <Frame BackgroundColor="{StaticResource Gray100}" Padding="10,7.5" CornerRadius="10" Margin="0,0,5,0">
+                            <Label Text="Accessory" TextColor="{StaticResource Gray600}"/>
+                        </Frame>
+                        <Frame BackgroundColor="{StaticResource Gray100}" Padding="10,7.5" CornerRadius="10" Margin="0,0,5,0">
+                            <Label Text="Aerobic" TextColor="{StaticResource Gray600}"/>
+                        </Frame>
+
+                    </StackLayout>
+                </ScrollView>
+                <ActivityIndicator x:Name="activity_indicator" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                <ScrollView Orientation="Vertical" HeightRequest="350">
+                    <StackLayout>
+                        <CollectionView x:Name="collectionView" Margin="0,10,0,0" SelectionMode="Multiple" IsGrouped="True" SelectionChanged="collectionView_SelectionChanged">
+                            <CollectionView.GroupHeaderTemplate>
+                                <DataTemplate>
+                                    <StackLayout BackgroundColor="Transparent" Padding="5">
+                                        <Label Text="{Binding Key}" TextColor="{StaticResource Accent}" FontAttributes="Bold" FontSize="18"  />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.GroupHeaderTemplate>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Padding="10,7.5">
+                                        <Label FontSize="16" Text="{Binding Name}" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </ScrollView>
+                <Button x:Name="add_btn" Clicked="Add_Button_Clicked" VerticalOptions="EndAndExpand" Text="Add Exercises" BackgroundColor="{StaticResource Accent}" TextColor="White"/>
+            </StackLayout>
+
+        </Frame>
+    </Grid>
+</toolkit:Popup>

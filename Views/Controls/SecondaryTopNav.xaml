@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Boost.Views.Controls.SecondaryTopNav"
+             xmlns:control="clr-namespace:Boost.Views.Controls">
+    <ContentView.Content>
+        <Border BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}" Stroke="{AppThemeBinding Dark='#252525', Light={StaticResource Gray200}}"  VerticalOptions="CenterAndExpand" HeightRequest="70">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0,0,15,15" />
+            </Border.StrokeShape>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <!--<Image Grid.Column="0" Scale="0.8" x:Name="back_tapped" VerticalOptions="CenterAndExpand" Margin="20,10,0,0" Source="{AppThemeBinding Light=back_gray.png, Dark=back_arrow.png}"> 
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Image.GestureRecognizers>
+                    --><!--<Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                            <On Platform="iOS" Value="back_gray.png"/>
+                            <On Platform="Android" Value="back_gray.png"/>
+                        </OnPlatform>
+                    </Image.Source>--><!--
+                </Image>-->
+                <Label Grid.Column="1" Text="{Binding Title}" FontFamily="Anton-Regular" Margin="0,0,0,0"  TextColor="{AppThemeBinding Dark='White', Light='#3F3F3F'}" FontSize="24" FontAttributes="Bold"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+
+            </Grid>
+        </Border>
+    </ContentView.Content>
+
+</ContentView>

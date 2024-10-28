@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Boost.Views.AddEditPages.AddEditWorkout"
+             xmlns:control="clr-namespace:Boost.Views.Controls"
+             xmlns:vm="clr-namespace:Boost.ViewModels"
+             Title="AddEditWorkout">
+    <ContentPage.BackgroundColor>
+        <AppThemeBinding Light="{StaticResource Main}" Dark="{StaticResource MainDark}" />
+    </ContentPage.BackgroundColor>
+    <ContentPage.BindingContext>
+        <vm:AddEditWorkoutViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DragGestureRecognizer x:Key="dragGesture" DragStarting="DragGestureRecognizer_DragStarting"/>
+            <DropGestureRecognizer x:Key="dropGesture" Drop="DropGestureRecognizer_Drop"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid BackgroundColor="{AppThemeBinding Dark={StaticResource MainDark}, Light={StaticResource Main}}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <!--<RowDefinition Height="70"  />-->
+        </Grid.RowDefinitions>
+        <control:AddEditTopNav Title="Add Workout" Grid.Row="0" BackTapCommand="{Binding BackButtonCommand}" ></control:AddEditTopNav>
+
+        <ScrollView Grid.Row="1">
+            <StackLayout Padding="20">
+
+                <!--WORKOUT DETAILS-->
+                <Label Text="Details" FontFamily="Anton-Regular" FontSize="22" Padding="5,5" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray600}}"></Label>
+                <control:CustomEntry PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray500}}" Placeholder="Your workout name" BorderColor="Gray" BorderThickness="1" Padding="15" Margin="0,0,0,10" Text="{Binding SignupEmail}" />
+                <control:CustomEntry VerticalTextAlignment="Start" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray500}}" HeightRequest="100" Placeholder="Share more about your workout" BorderColor="Gray" BorderThickness="1" Padding="15" Margin="0,0,0,10" Text="{Binding SignupEmail}" />
+
+                <Border Stroke="{StaticResource AccentLight}" Padding="20" StrokeDashArray="4, 2" StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" BackgroundColor="DarkGray" />
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ThumbNailTapGestureRecognizer_Tapped"/>
+                    </Border.GestureRecognizers>
+                    <StackLayout>
+                        <Image x:Name="thunmbnail"></Image>
+                        <Label Text="+ Add Thumbnail Image" HorizontalOptions="Center" TextColor="{StaticResource AccentLight}"/>
+                    </StackLayout>
+                </Border>
+                <StackLayout Orientation="Horizontal" Margin="0,20,0,0">
+                    <Label Text="Workout" FontFamily="Anton-Regular" FontSize="22" Padding="5,5" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray600}}"/>
+                    <Button TextColor="{AppThemeBinding Dark={StaticResource Gray100}, Light='White'}" Text="Add Exercise" x:Name="add_exercise_button" FontSize="12" HorizontalOptions="EndAndExpand" Padding="10" CornerRadius="10" BackgroundColor="{StaticResource Accent}" VerticalOptions="Center" Margin="0" Clicked="Add_Exercise_Tapped"></Button>
+                    <Button TextColor="{AppThemeBinding Dark={StaticResource Gray100}, Light='White'}" Text="Add Minute" x:Name="add_minute_button" FontSize="12" HorizontalOptions="EndAndExpand" Padding="10" CornerRadius="10" BackgroundColor="{StaticResource Accent}" VerticalOptions="Center" Margin="0" Clicked="Add_Minute_Tapped"></Button>
+                </StackLayout>
+
+                <!--WORKOUT TYPE-->
+                <Picker x:Name ="workout_type_picker" TitleColor="{AppThemeBinding Dark='White', Light={StaticResource Gray500}}" Title="Workout Type" SelectedIndexChanged="workout_type_picker_SelectedIndexChanged"/>
+                <Picker x:Name ="wod_picker" Title="Select WOD" SelectedIndexChanged="wod_picker_SelectedIndexChanged" TitleColor="{AppThemeBinding Dark='White', Light={StaticResource Gray500}}"/>
+
+                <!--TIME LIMIT-->
+                <StackLayout Orientation="Horizontal" x:Name="rounds_switch_stack">
+                    <Label VerticalOptions="Center" Text="Time Limit" FontSize="16" Margin="5,0" />
+                    <Switch  Toggled="Time_Switch_Toggled" />
+                </StackLayout>
+                <StackLayout x:Name="time_switch_entry">
+                    <StackLayout Orientation="Horizontal">
+                        <control:CustomEntry Keyboard="Numeric" Placeholder="Hours" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" BorderColor="{StaticResource Gray400}" HeightRequest="40" WidthRequest="60"  BorderThickness="1" Padding="7.5" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                        <Label Text=":" VerticalOptions="Center"/>
+                        <control:CustomEntry Keyboard="Numeric" Placeholder="Minutes" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" BorderColor="{StaticResource Gray400}" HeightRequest="40" WidthRequest="60"  BorderThickness="1" Padding="7.5" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                        <Label Text=":" VerticalOptions="Center"/>
+                        <control:CustomEntry Keyboard="Numeric" Placeholder="Seconds" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" BorderColor="{StaticResource Gray400}" HeightRequest="40" WidthRequest="70"  BorderThickness="1" Padding="7.5" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                    </StackLayout>
+                </StackLayout>
+
+                <!--ROUNDS-->
+                <StackLayout Orientation="Horizontal" x:Name="time_switch_stack">
+                    <Label VerticalOptions="Center" Text="Add Rounds" FontSize="16" Margin="5,0" />
+                    <Switch  Toggled="Rounds_Switch_Toggled" />
+                </StackLayout>
+                <control:CustomEntry Keyboard="Numeric" x:Name="rounds_switch_entry" Margin="5,0,0,0"  Placeholder="Rounds" HorizontalOptions="StartAndExpand" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}"  BorderColor="{StaticResource Gray400}" HeightRequest="40" WidthRequest="70"  BorderThickness="1" Padding="10" ></control:CustomEntry>
+
+
+                <!--REGULAR-->
+                <ScrollView Orientation="Vertical" HorizontalOptions="FillAndExpand" x:Name="addworkout_view">
+                    <StackLayout x:Name="workout_stack" >
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BorderColor="{StaticResource Gray100}" HorizontalOptions="FillAndExpand" CornerRadius="10" HasShadow="False" Margin="0,10,0,0" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}">
+                                    <Frame.GestureRecognizers>
+                                        <DragGestureRecognizer DragStarting="DragGestureRecognizer_DragStarting"/>
+                                        <DropGestureRecognizer Drop="DropGestureRecognizer_Drop"/>
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                        
+                                        <!--NAME AND REMOVE BTN-->
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding Name}" VerticalOptions="Center" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray500}}" FontFamily="Anton-Regular" FontSize="20"/>
+                                            <Button Text="Remove" FontSize="12" Clicked="Remove_Exercise_Clicked"  CornerRadius="10" TextColor="{AppThemeBinding Dark={StaticResource Gray100}, Light='White'}"  Padding="8" BackgroundColor="{StaticResource Gray300}" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                                        </StackLayout>
+                                        
+                                        <!--CHECKBOX-->
+                                        <StackLayout Padding="5,0" Orientation="Horizontal" IsVisible="{Binding IsWeightliting}">
+                                            <CheckBox VerticalOptions="Center" x:Name="use_1RM" CheckedChanged="use_1RM_CheckedChanged"></CheckBox>
+                                            <Label VerticalOptions="Center" Text="Use 1RM Percentage"/>
+                                        </StackLayout>
+                                        
+                                        <!--SETS-->
+                                        <StackLayout Padding="0,5,0,0" x:Name="sets_stack">
+                                            <StackLayout  Orientation="Horizontal" VerticalOptions="CenterAndExpand" Margin="0,5,0,0">
+                                                <Label IsVisible="{Binding IsRest, Converter={StaticResource BoolToOppositeConverter}}" Text="x" VerticalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}"/>
+                                                <control:CustomEntry Placeholder="1" IsVisible="{Binding IsRest, Converter={StaticResource BoolToOppositeConverter}}" Text="1" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" BorderColor="{StaticResource Gray200}" HeightRequest="40" WidthRequest="30"  BorderThickness="1" Padding="7.5" Margin="5,0" VerticalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}"></control:CustomEntry>
+                                                <control:CustomEntry Keyboard="Numeric"  IsVisible="{Binding IsCalisthenics}" Placeholder="Reps" HorizontalOptions="StartAndExpand" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" WidthRequest="100"  BorderColor="{StaticResource Gray200}" HeightRequest="40"   BorderThickness="1" Padding="10" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                                                <Frame Padding="5,0" WidthRequest="50" IsVisible="{Binding IsOther}"  Background="Transparent" BorderColor="{StaticResource Gray200}" CornerRadius="10">
+                                                    <Picker Title="Measurement" ItemsSource="{Binding UnitOfMeaasurements}" SelectedIndexChanged="unitOfMeasurement_SelectedIndexChanged"/>
+                                                </Frame>
+                                                <control:CustomEntry Keyboard="Numeric" IsVisible="{Binding IsOther}" Placeholder="Enter" BorderColor="{StaticResource Gray200}" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" HeightRequest="40" WidthRequest="100"  BorderThickness="1" Padding="10" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                                                <Picker x:Name="unitOfMeasurement_value" IsVisible="False" Title="Unit"/>
+
+                                                <StackLayout AutomationId="1rm_stack" IsVisible="{Binding IsWeightliting}" Orientation="Horizontal">
+                                                    <control:CustomEntry   Keyboard="Numeric"  Placeholder="Weight" BorderColor="{StaticResource Gray200}" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" WidthRequest="100" HeightRequest="40"  BorderThickness="1" Padding="10" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                                                    <control:CustomEntry IsVisible="false" TextChanged="Percentage_TextChanged"  Keyboard="Numeric"  Placeholder="%" BorderColor="{StaticResource Gray200}" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" WidthRequest="40" HeightRequest="40"  BorderThickness="1" Padding="10"  VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                                                    <control:CustomEntry IsVisible="false"  IsEnabled="False"  Placeholder="Weight" BorderColor="{StaticResource Gray200}" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" WidthRequest="60" HeightRequest="40"  BorderThickness="1" Padding="10" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                                                </StackLayout>
+                                                <Frame IsVisible="{Binding IsWeightliting}" Padding="5,0" Background="Transparent" BorderColor="{StaticResource Gray200}" CornerRadius="10">
+                                                    <Picker Title="Unit" ItemsSource="{Binding UnitOfMeaasurements}" TitleColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}"  SelectedIndexChanged="unitOfMeasurement_SelectedIndexChanged"/>
+                                                </Frame>
+                                                <control:CustomEntry Keyboard="Numeric"  IsVisible="{Binding IsWeightliting}" Placeholder="Reps" HorizontalOptions="StartAndExpand" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" WidthRequest="50"  BorderColor="{StaticResource Gray200}" HeightRequest="40"   BorderThickness="1" Padding="10" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                                                <StackLayout Orientation="Horizontal" IsVisible="{Binding IsRest}" HorizontalOptions="FillAndExpand">
+                                                    <control:CustomEntry HorizontalOptions="FillAndExpand" Keyboard="Numeric" Placeholder="Hours" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" BorderColor="{StaticResource Gray400}" HeightRequest="40"   BorderThickness="1" Padding="7.5" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                                                    <Label Text=":" VerticalOptions="Center"/>
+                                                    <control:CustomEntry HorizontalOptions="FillAndExpand" Keyboard="Numeric" Placeholder="Minutes" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" BorderColor="{StaticResource Gray400}" HeightRequest="40"  BorderThickness="1" Padding="7.5" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                                                    <Label Text=":" VerticalOptions="Center"/>
+                                                    <control:CustomEntry HorizontalOptions="FillAndExpand" Keyboard="Numeric" Placeholder="Seconds" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" BorderColor="{StaticResource Gray400}" HeightRequest="40"   BorderThickness="1" Padding="7.5" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                                                </StackLayout>
+                                                <ImageButton HeightRequest="20" IsVisible="{Binding IsRest, Converter={StaticResource BoolToOppositeConverter}}" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="Remove_Set_Clicked">
+                                                    <ImageButton.Source>
+                                                        <OnPlatform x:TypeArguments="ImageSource">
+                                                            <On Platform="iOS" Value="remove_red.png"/>
+                                                            <On Platform="Android" Value="remove_red.png"/>
+                                                        </OnPlatform>
+                                                    </ImageButton.Source>
+                                                </ImageButton>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        
+                                        <!--ADD SETS BTN-->
+                                        <StackLayout Margin="0,10,0,0" x:Name="add_set_btn" IsVisible="{Binding IsRest, Converter={StaticResource BoolToOppositeConverter}}">
+                                            <Button BindingContext="{Binding .}" Clicked="Add_Set_Clicked" Text="Add Set" TextColor="White" BackgroundColor="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource Gray300}}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+
+                </ScrollView>
+
+                <!--EMOM-->
+                <ScrollView Orientation="Vertical" x:Name="emom_view">
+                    <StackLayout  x:Name="emom_stack">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Frame HorizontalOptions="FillAndExpand" CornerRadius="10" HasShadow="False" Margin="0,10,0,0" BackgroundColor="{AppThemeBinding Dark='#252525', Light='White'}">
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding Name}" VerticalOptions="Center" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray500}}" FontFamily="Anton-Regular" FontSize="20"/>
+                                            <Button Text="Remove" FontSize="12" Clicked="Remove_Minute_Clicked"  CornerRadius="10" TextColor="{AppThemeBinding Dark={StaticResource Gray100}, Light='White'}"  Padding="8" BackgroundColor="{StaticResource Gray500}" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                                        </StackLayout>
+                                        <StackLayout  x:Name="emom_exercise_stack">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Padding="5,10">
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <Label Margin="0,0,10,0" Text="{Binding Name}" VerticalOptions="Center" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray500}}" FontFamily="Anton-Regular" FontSize="20"/>
+                                                            <Button Text="Remove" FontSize="12" Clicked="Remove_Exercise_Clicked"  CornerRadius="10" TextColor="{AppThemeBinding Dark={StaticResource Gray100}, Light='White'}"  Padding="8" BackgroundColor="{StaticResource Gray500}" VerticalOptions="Center" HorizontalOptions="End"/>
+                                                        </StackLayout>
+                                                        <StackLayout Padding="0,10,0,0" x:Name="sets_stack">
+                                                            <StackLayout  Orientation="Horizontal" VerticalOptions="CenterAndExpand" Margin="0,5,0,0">
+                                                                <Label Text="x" VerticalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}"/>
+                                                                <control:CustomEntry Placeholder="1" Text="1" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" BorderColor="{StaticResource Gray200}" HeightRequest="40" WidthRequest="30"  BorderThickness="1" Padding="7.5" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+
+                                                                <Picker ItemsSource="{Binding UnitOfMeaasurements}" IsVisible="{Binding IsOther}" SelectedIndexChanged="unitOfMeasurement_SelectedIndexChanged"/>
+                                                                <control:CustomEntry IsVisible="{Binding IsOther}" Placeholder="Enter" BorderColor="{StaticResource Gray200}" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" HeightRequest="40" WidthRequest="100"  BorderThickness="1" Padding="10" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                                                                <Picker x:Name="unitOfMeasurement_value" IsVisible="False" Title="Unit"/>
+
+                                                                <control:CustomEntry IsVisible="{Binding IsWeightliting}" Placeholder="Weight" BorderColor="{StaticResource Gray200}" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" WidthRequest="100" HeightRequest="40"  BorderThickness="1" Padding="10" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+                                                                <Picker Title="Unit" ItemsSource="{Binding UnitOfMeaasurements}" IsVisible="{Binding IsWeightliting}" SelectedIndexChanged="unitOfMeasurement_SelectedIndexChanged"/>
+                                                                <control:CustomEntry  IsVisible="{Binding IsWeightliting}" Placeholder="Reps" HorizontalOptions="StartAndExpand" PlaceholderColor="{AppThemeBinding Dark='White', Light={StaticResource Gray400}}" WidthRequest="50"  BorderColor="{StaticResource Gray200}" HeightRequest="40"   BorderThickness="1" Padding="10" Margin="5,0" VerticalOptions="CenterAndExpand"></control:CustomEntry>
+
+                                                                <ImageButton VerticalOptions="Center" HorizontalOptions="EndAndExpand" Clicked="Remove_Set_Clicked">
+                                                                    <ImageButton.Source>
+                                                                        <OnPlatform x:TypeArguments="ImageSource">
+                                                                            <On Platform="iOS" Value="remove_red.png"/>
+                                                                            <On Platform="Android" Value="remove_red.png"/>
+                                                                        </OnPlatform>
+                                                                    </ImageButton.Source>
+                                                                </ImageButton>
+                                                            </StackLayout>
+                                                        </StackLayout>
+                                                        <StackLayout Margin="0,10,0,0">
+                                                            <Button Clicked="Add_Set_Clicked" Text="Add Set" TextColor="White" BackgroundColor="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource Gray300}}"/>
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </StackLayout>
+
+                                        <StackLayout Margin="0,10,0,0">
+                                            <Button Clicked="Emom_Add_Exercise_Clicked" Text="Add Exercise" TextColor="White" BackgroundColor="{AppThemeBinding Dark={StaticResource Gray600}, Light={StaticResource Gray300}}"/>
+                                        </StackLayout>
+
+
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+
+                </ScrollView>
+
+                <!--VISIBILITY-->
+                <StackLayout Margin="0,20,0,0">
+                    <Label Text="Visibility" FontFamily="Anton-Regular" FontSize="22" Padding="5,5" TextColor="{AppThemeBinding Dark='White', Light={StaticResource Gray600}}"></Label>
+
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                            <CheckBox x:Name="public_checkbox" CheckedChanged="Public_Visibility_CheckBox_CheckedChanged"></CheckBox>
+                            <StackLayout Margin="10,0">
+                                <Label  FontSize="17" VerticalOptions="Center" TextColor="{AppThemeBinding Dark={StaticResource Gray200}, Light={StaticResource Gray500}}" Text="Public"/>
+                                <Label Text="Visible to everyone." TextColor="{StaticResource Gray300}" />
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                            <CheckBox x:Name="friends_checkbox" CheckedChanged="Friends_Visibility_CheckBox_CheckedChanged"></CheckBox>
+                            <StackLayout Margin="10,0">
+                                <Label  FontSize="17" VerticalOptions="Center" Text="Friends Only" TextColor="{AppThemeBinding Dark={StaticResource Gray200}, Light={StaticResource Gray500}}" />
+                                <Label Text="Only your followers can view this workout." TextColor="{StaticResource Gray300}"/>
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                            <CheckBox x:Name="private_checkbox" CheckedChanged="Private_Visibility_CheckBox_CheckedChanged"></CheckBox>
+                            <StackLayout Margin="10,0">
+                                <Label  FontSize="17" VerticalOptions="Center" Text="Private" TextColor="{AppThemeBinding Dark={StaticResource Gray200}, Light={StaticResource Gray500}}" />
+                                <Label Text="Only you can see this workout." TextColor="{StaticResource Gray300}"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+
+
+                <Button Margin="0,10,0,0" Text="Save" BackgroundColor="{StaticResource Accent}">
+
+                </Button>
+            </StackLayout>
+
+        </ScrollView>
+
+        <!--<Button Grid.Row="1" ImageSource="add_icon"  HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" WidthRequest="25" HeightRequest="25" BackgroundColor="Transparent" Margin="0,0,30,30"></Button>-->
+
+
+
+        <!--<control:AddButton Grid.Row="2" BackgroundColor="Transparent"></control:AddButton>-->
+
+    </Grid>
+</ContentPage>
