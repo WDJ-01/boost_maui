@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Boost")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+51cca4399ccb99ae4e14a161a41d1643eab3ae92")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+14f604eeb72de2d8af124a618297cd76ccb2f1ec")]
 [assembly: System.Reflection.AssemblyProductAttribute("Boost")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Boost")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
